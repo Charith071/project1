@@ -19,6 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".police" />
+        <activity android:name=".emergency" />
+        <activity android:name=".university" />
+        <activity android:name=".hotline"></activity>
     </application>
 
 </manifest>

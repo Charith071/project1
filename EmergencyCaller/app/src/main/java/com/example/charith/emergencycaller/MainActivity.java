@@ -1,5 +1,6 @@
 package com.example.charith.emergencycaller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,9 +13,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+        TextView emergency_txt,police_txt,university_txt,hotline_txt,hospital_txt;
+        ImageView emergency_img,police_img,university_img,hotline_img,hospital_img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +28,17 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        emergency_txt=findViewById(R.id.emergencytxt_id);
+        emergency_img=findViewById(R.id.emergencyimg_id);
+        police_txt=findViewById(R.id.policetxt_id);
+        police_img=findViewById(R.id.policeimg_id);
+        university_txt=findViewById(R.id.universitytxt_id);
+        university_img=findViewById(R.id.universityimg_id);
+        hotline_txt=findViewById(R.id.hotlinetxt_id);
+        hotline_img=findViewById(R.id.hotlineimg_id);
+
+        set_listner();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +57,65 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+    public void set_listner(){
+        emergency_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplication(),emergency.class);
+                startActivity(intent);
+            }
+        });
+        emergency_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplication(),emergency.class);
+                startActivity(intent);
+            }
+        });
+        police_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplication(),police.class);
+                startActivity(intent);
+            }
+        });
+        police_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplication(),police.class);
+                startActivity(intent);
+            }
+        });
+
+        university_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplication(),university.class);
+                startActivity(intent);
+            }
+        });
+        university_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplication(),university.class);
+                startActivity(intent);
+            }
+        });
+        hotline_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplication(),hotline.class);
+                startActivity(intent);
+            }
+        });
+        hotline_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplication(),hotline.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
