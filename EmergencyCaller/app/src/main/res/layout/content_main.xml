@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/homestyle"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.charith.emergencycaller.MainActivity"
+    tools:layout_editor_absoluteY="81dp"
+    tools:showIn="@layout/app_bar_main">
+
+    <ImageView
+        android:id="@+id/emergencyimg_id"
+        android:layout_width="76dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/emgency2" />
+
+    <ImageView
+        android:id="@+id/hospitalimg_id"
+        android:layout_width="76dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hotlineimg_id"
+        app:srcCompat="@mipmap/hot" />
+
+    <ImageView
+        android:id="@+id/hotlineimg_id"
+        android:layout_width="76dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/universityimg_id"
+        app:srcCompat="@mipmap/hot" />
+
+    <ImageView
+        android:id="@+id/universityimg_id"
+        android:layout_width="76dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/policeimg_id"
+        app:srcCompat="@mipmap/university" />
+
+    <ImageView
+        android:id="@+id/policeimg_id"
+        android:layout_width="76dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="9dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emergencyimg_id"
+        app:srcCompat="@mipmap/police" />
+
+    <TextView
+        android:id="@+id/universitytxt_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:layout_marginTop="57dp"
+        android:drawableLeft="@mipmap/ic_call_white_24dp"
+        android:drawablePadding="10dp"
+        android:text="University"
+        android:textColor="#fff"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/policetxt_id" />
+
+    <TextView
+        android:id="@+id/hospitaltxt_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="46dp"
+        android:layout_marginTop="61dp"
+        android:drawableLeft="@mipmap/ic_call_white_24dp"
+        android:drawablePadding="10dp"
+        android:text="Hospitals"
+        android:textColor="#fff"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hotlinetxt_id" />
+
+    <TextView
+        android:id="@+id/hotlinetxt_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="47dp"
+        android:layout_marginTop="60dp"
+        android:drawableLeft="@mipmap/ic_call_white_24dp"
+        android:drawablePadding="10dp"
+        android:text="Hot Lines"
+        android:textColor="#fff"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/universitytxt_id" />
+
+    <TextView
+        android:id="@+id/emergencytxt_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="37dp"
+        android:layout_marginTop="35dp"
+        android:drawableLeft="@mipmap/ic_call_white_24dp"
+        android:drawablePadding="10dp"
+        android:text="Emergency"
+        android:textColor="#fff"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/policetxt_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="48dp"
+        android:drawableLeft="@mipmap/ic_call_white_24dp"
+        android:drawablePadding="10dp"
+        android:text="Police Station"
+        android:textColor="#fff"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emergencytxt_id" />
+</android.support.constraint.ConstraintLayout>
