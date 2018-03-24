@@ -24,5 +24,6 @@
         <activity android:name=".university" />
         <activity android:name=".hotline"></activity>
     </application>
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
 
 </manifest>

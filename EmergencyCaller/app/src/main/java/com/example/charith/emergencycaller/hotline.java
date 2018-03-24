@@ -1,8 +1,15 @@
 package com.example.charith.emergencycaller;
 
+import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +29,8 @@ public class hotline extends AppCompatActivity {
     EditText serch_txt;
     DatabaseHelper databaseHelper;
     Cursor result;
+    private static int REQUEST_CALL=1;
+    private String call_number="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +83,7 @@ public class hotline extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String value= String.valueOf(listView.getItemAtPosition(position));
-                    show_msg("data",value);
+                    show_msg("Do You Want to Get a Call ?",value);
                 }
             });
         }
@@ -82,18 +91,54 @@ public class hotline extends AppCompatActivity {
 
 
     }
-    public void show_msg(String titile,String msg){
+    public void show_msg(String titile, final String msg){
         AlertDialog.Builder dialog=new AlertDialog.Builder(hotline.this);
 
-        dialog.setMessage(msg).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        dialog.setMessage(msg).setPositiveButton("NO", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               dialog.dismiss();
+                dialog.dismiss();
+            }
+        }).setNegativeButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //get call
+                call_number=msg;
+                get_call();
+
             }
         });
         dialog.create();
         dialog.setTitle(titile);
         dialog.show();
 
+    }
+
+    public void get_call(){
+
+        if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(hotline.this,new String[]{Manifest.permission.CALL_PHONE},REQUEST_CALL);
+        }else {
+            Intent intent=new Intent(Intent.ACTION_CALL);
+
+            String delimiter="  ";
+
+            String[] temp=call_number.split(delimiter);
+           // Toast.makeText(hotline.this,temp[1],Toast.LENGTH_LONG).show();
+            String tel="tel:"+temp[1].trim();
+
+
+            intent.setData(Uri.parse(tel));
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode==REQUEST_CALL){
+            if(grantResults.length >0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                get_call();
+            }
+        }
     }
 }
