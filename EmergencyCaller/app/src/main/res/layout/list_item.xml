@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:paddingLeft="50dp"
     android:paddingTop="15dp"
+    android:id="@+id/list_item_txt_id"
     android:layout_gravity="center"
     android:padding="10dp"
     android:textColor="#fff"
