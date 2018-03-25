@@ -28,7 +28,7 @@ public class Search extends AppCompatActivity {
     DatabaseHelper databaseHelper;
     ArrayAdapter arrayAdapter;
     Cursor res;
-    String type;
+    String type="";
     private int REQUEST_CALL=1;
     String value;
     ArrayList<String> thelist;
@@ -41,16 +41,27 @@ public class Search extends AppCompatActivity {
         serchtxt=findViewById(R.id.auto_searchtxt_id);
         database_initialize();
         Intent intent=getIntent() ;
-        type=intent.getExtras().getString("type");
-        load_auto_array();
+        type=intent.getExtras().getString("type").toString();
+       // Toast.makeText(getApplicationContext(),type,Toast.LENGTH_LONG).show();
+       // check_status();
+
         set_autocomplete_search();
 
     }
 
+    public void check_status(){
+        Toast.makeText(getApplicationContext(),type,Toast.LENGTH_LONG).show();
+    }
+
 
     public void set_autocomplete_search(){
+
         thelist=new ArrayList<String>();
-        res=databaseHelper.custom_query("select * from hotline");
+        if(type.equals("hotline")){
+            //Toast.makeText(getApplicationContext(),type,Toast.LENGTH_LONG).show();
+            res=databaseHelper.custom_query("select * from hotline");
+        }
+
         if(res.getCount()==0){
             //empty
         }else {
@@ -135,11 +146,7 @@ public class Search extends AppCompatActivity {
         }
     }
 
-    public void load_auto_array(){
-        if(type=="hotline"){
-            Toast.makeText(getApplicationContext(),type,Toast.LENGTH_LONG).show();
-        }
-    }
+
 
 
 }
