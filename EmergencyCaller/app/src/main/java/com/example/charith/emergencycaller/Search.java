@@ -30,6 +30,7 @@ public class Search extends AppCompatActivity {
     Cursor res;
     String type="";
     private int REQUEST_CALL=1;
+    String tel;
     String value;
     ArrayList<String> thelist;
     String telnumber;
@@ -38,10 +39,12 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        serchtxt=findViewById(R.id.auto_searchtxt_id);
+
         database_initialize();
         Intent intent=getIntent() ;
         type=intent.getExtras().getString("type").toString();
+        serchtxt=findViewById(R.id.auto_searchtxt_id);
+
        // Toast.makeText(getApplicationContext(),type,Toast.LENGTH_LONG).show();
        // check_status();
 
@@ -62,6 +65,8 @@ public class Search extends AppCompatActivity {
             res=databaseHelper.custom_query("select * from hotline");
         }if(type.equals("emergency")){
             res=databaseHelper.custom_query("select * from emergency");
+        } if(type.equals("university")){
+            res=databaseHelper.custom_query("select * from university");
         }
 
         if(res.getCount()==0){
@@ -84,7 +89,7 @@ public class Search extends AppCompatActivity {
             });
         }
     }
-    public void show_msg(String titile, final String msg){
+   public void show_msg(String titile, final String msg){
         AlertDialog.Builder dialog=new AlertDialog.Builder(Search.this);
 
         dialog.setMessage(msg).setPositiveButton("NO", new DialogInterface.OnClickListener() {
@@ -117,8 +122,14 @@ public class Search extends AppCompatActivity {
 
             String[] temp=telnumber.split(delimiter);
             Toast.makeText(Search.this,"calling",Toast.LENGTH_LONG).show();
-            String tel="tel:"+temp[1].trim();
-            //Toast.makeText(Search.this,temp[1],Toast.LENGTH_LONG).show();
+            if(type.equals("university")){
+                 tel="tel:"+temp[2].trim();
+                //Toast.makeText(Search.this,temp[2],Toast.LENGTH_LONG).show();
+            }else {
+                tel="tel:"+temp[1].trim();
+                //Toast.makeText(Search.this,temp[1],Toast.LENGTH_LONG).show();
+            }
+
             intent.setData(Uri.parse(tel));
             startActivity(intent);
         }

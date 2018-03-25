@@ -13,6 +13,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,6 +42,27 @@ public class university extends AppCompatActivity {
         set_database_initialize();
         set_list_item();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.hotlinemenu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id=item.getItemId();
+        if (id==R.id.serch_item){
+          //  Toast.makeText(getApplicationContext(),"serch icon is clicked!!",Toast.LENGTH_LONG).show();
+            Intent intent=new Intent(getApplication(),Search.class);
+            intent.putExtra("type","university");
+            startActivity(intent);
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void set_database_initialize(){
         databaseHelper=new DatabaseHelper(getApplicationContext());
         try{
@@ -71,7 +95,7 @@ public class university extends AppCompatActivity {
             //Empty
         }else {
             while (result.moveToNext()){
-                thelist.add(result.getString(0)+"   "+result.getString(1)+"   "+result.getString(2));
+                thelist.add(result.getString(1)+"   "+result.getString(2));
                 ListAdapter listAdapter=new ArrayAdapter<>(this,R.layout.list_item,thelist);
                 listView.setAdapter(listAdapter);
             }
@@ -120,8 +144,8 @@ public class university extends AppCompatActivity {
             String delimiter="   ";
 
             String[] temp=call_number.split(delimiter);
-            Toast.makeText(university.this,temp[2],Toast.LENGTH_LONG).show();
-            String tel="tel:"+temp[2].trim();
+            Toast.makeText(university.this,temp[1],Toast.LENGTH_LONG).show();
+            String tel="tel:"+temp[1].trim();
 
 
             intent.setData(Uri.parse(tel));
