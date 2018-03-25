@@ -46,7 +46,7 @@ public class hotline extends AppCompatActivity {
     public void set_database_initialize(){
         databaseHelper=new DatabaseHelper(getApplicationContext());
         try{
-            //  databaseHelper.onUpgrade(databaseHelper.mdatabase,11,12);
+              databaseHelper.onUpgrade(databaseHelper.mdatabase,1,2);
             databaseHelper.createDatabase();
         }catch (IOException e){
             throw new Error("asdsd");
@@ -124,7 +124,7 @@ public class hotline extends AppCompatActivity {
             String delimiter="  ";
 
             String[] temp=call_number.split(delimiter);
-           // Toast.makeText(hotline.this,temp[1],Toast.LENGTH_LONG).show();
+            Toast.makeText(hotline.this,temp[1],Toast.LENGTH_LONG).show();
             String tel="tel:"+temp[1].trim();
 
 
