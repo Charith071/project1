@@ -60,6 +60,8 @@ public class Search extends AppCompatActivity {
         if(type.equals("hotline")){
             //Toast.makeText(getApplicationContext(),type,Toast.LENGTH_LONG).show();
             res=databaseHelper.custom_query("select * from hotline");
+        }if(type.equals("emergency")){
+            res=databaseHelper.custom_query("select * from emergency");
         }
 
         if(res.getCount()==0){
