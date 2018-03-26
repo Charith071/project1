@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity
         university_img=findViewById(R.id.universityimg_id);
         hotline_txt=findViewById(R.id.hotlinetxt_id);
         hotline_img=findViewById(R.id.hotlineimg_id);
+        hospital_txt=findViewById(R.id.hospitaltxt_id);
+        hospital_img=findViewById(R.id.hospitalimg_id);
 
         set_listner();
 
@@ -123,6 +125,20 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplication(),hotline.class);
+                startActivity(intent);
+            }
+        });
+        hospital_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplication(),hospital.class);
+                startActivity(intent);
+            }
+        });
+        hospital_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplication(),hospital.class);
                 startActivity(intent);
             }
         });

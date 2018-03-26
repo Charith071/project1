@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -27,25 +26,22 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class hotline extends AppCompatActivity {
-       ListView listView;
-    EditText serch_txt;
+public class hospital extends AppCompatActivity {
+
+    ListView listView;
     DatabaseHelper databaseHelper;
     Cursor result;
     private static int REQUEST_CALL=1;
     private String call_number="";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hotline);
-      //  serch_txt=findViewById(R.id.hotlineserchtxt_id);
-        listView=findViewById(R.id.hot_listview_id);
+        setContentView(R.layout.activity_hospital);
+        listView=findViewById(R.id.hospital_listview_id);
 
         set_database_initialize();
         set_list_item();
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater=getMenuInflater();
@@ -58,9 +54,9 @@ public class hotline extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id=item.getItemId();
         if (id==R.id.serch_item){
-           //Toast.makeText(getApplicationContext(),"serch icon is clicked!!",Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(),"serch icon is clicked!!",Toast.LENGTH_LONG).show();
             Intent intent=new Intent(getApplication(),Search.class);
-            intent.putExtra("type","hotline");
+            intent.putExtra("type","hospital");
             startActivity(intent);
 
         }
@@ -70,7 +66,7 @@ public class hotline extends AppCompatActivity {
     public void set_database_initialize(){
         databaseHelper=new DatabaseHelper(getApplicationContext());
         try{
-              databaseHelper.onUpgrade(databaseHelper.mdatabase,1,2);
+            databaseHelper.onUpgrade(databaseHelper.mdatabase,1,2);
             databaseHelper.createDatabase();
         }catch (IOException e){
             throw new Error("asdsd");
@@ -93,7 +89,7 @@ public class hotline extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),value,Toast.LENGTH_LONG).show();
             }
         });*/
-        result=databaseHelper.custom_query("select * from hotline");
+        result=databaseHelper.custom_query("select * from hospital");
         ArrayList<String> thelist=new ArrayList<String >();
         if(result.getCount()==0){
             //Empty
@@ -116,7 +112,7 @@ public class hotline extends AppCompatActivity {
 
     }
     public void show_msg(String titile, final String msg){
-        AlertDialog.Builder dialog=new AlertDialog.Builder(hotline.this);
+        AlertDialog.Builder dialog=new AlertDialog.Builder(hospital.this);
 
         dialog.setMessage(msg).setPositiveButton("NO", new DialogInterface.OnClickListener() {
             @Override
@@ -141,15 +137,15 @@ public class hotline extends AppCompatActivity {
     public void get_call(){
 
         if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(hotline.this,new String[]{Manifest.permission.CALL_PHONE},REQUEST_CALL);
+            ActivityCompat.requestPermissions(hospital.this,new String[]{Manifest.permission.CALL_PHONE},REQUEST_CALL);
         }else {
             Intent intent=new Intent(Intent.ACTION_CALL);
 
             String delimiter="  ";
 
             String[] temp=call_number.split(delimiter);
-            Toast.makeText(hotline.this,temp[1],Toast.LENGTH_LONG).show();
-            String tel="tel:"+temp[1].trim();
+            Toast.makeText(hospital.this,temp[2],Toast.LENGTH_LONG).show();
+            String tel="tel:"+temp[2].trim();
 
 
             intent.setData(Uri.parse(tel));

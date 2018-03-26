@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/homestyle"
-    tools:context="com.example.charith.emergencycaller.police">
-
+    tools:context="com.example.charith.emergencycaller.hospital">
     <ListView
-        android:id="@+id/police_listview_id"
+        android:id="@+id/hospital_listview_id"
         android:layout_width="342dp"
         android:layout_height="409dp"
         android:layout_marginStart="45dp"
@@ -16,4 +15,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

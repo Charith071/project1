@@ -67,6 +67,10 @@ public class Search extends AppCompatActivity {
             res=databaseHelper.custom_query("select * from emergency");
         } if(type.equals("university")){
             res=databaseHelper.custom_query("select * from university");
+        }if(type.equals("police")){
+            res=databaseHelper.custom_query("select * from police");
+        }if(type.equals("hospital")){
+            res=databaseHelper.custom_query("select * from hospital");
         }
 
         if(res.getCount()==0){
@@ -125,6 +129,10 @@ public class Search extends AppCompatActivity {
             if(type.equals("university")){
                  tel="tel:"+temp[2].trim();
                 //Toast.makeText(Search.this,temp[2],Toast.LENGTH_LONG).show();
+            }if(type.equals("police")){
+                tel="tel:"+temp[2].trim();
+            }if(type.equals("hospital")){
+                tel="tel:"+temp[2].trim();
             }else {
                 tel="tel:"+temp[1].trim();
                 //Toast.makeText(Search.this,temp[1],Toast.LENGTH_LONG).show();
