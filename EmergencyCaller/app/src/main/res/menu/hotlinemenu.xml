@@ -8,6 +8,14 @@
         android:title="@string/action_settings"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/add_item_id"
+        android:icon="@mipmap/ic_add_white_24dp"
+        app:showAsAction="always"
+        android:orderInCategory="100"
+
+        ></item>
+
    <!--<item android:id="@+id/hotserch1_id"
        android:title="serch1"
        app:showAsAction="never"

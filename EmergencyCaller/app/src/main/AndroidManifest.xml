@@ -26,7 +26,8 @@
         <activity android:name=".university" />
         <activity android:name=".hotline" />
         <activity android:name=".Search" />
-        <activity android:name=".hospital"></activity>
+        <activity android:name=".hospital" />
+        <activity android:name=".Addnewrecord"></activity>
     </application>
 
 </manifest>

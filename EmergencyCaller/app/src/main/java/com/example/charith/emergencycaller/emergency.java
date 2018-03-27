@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,6 +58,11 @@ public class emergency extends AppCompatActivity {
             intent.putExtra("type","emergency");
             startActivity(intent);
 
+        }if(id==R.id.add_item_id){
+            //Toast.makeText(getApplicationContext(),"add icon is clicked!!",Toast.LENGTH_LONG).show();
+            Intent intent=new Intent(getApplication(),Addnewrecord.class);
+            intent.putExtra("type","emergency");
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity
         hospital_txt=findViewById(R.id.hospitaltxt_id);
         hospital_img=findViewById(R.id.hospitalimg_id);
 
+        
+
         set_listner();
 
 

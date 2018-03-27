@@ -61,6 +61,11 @@ public class police extends AppCompatActivity {
             intent.putExtra("type","police");
             startActivity(intent);
 
+        }if(id==R.id.add_item_id){
+           // Toast.makeText(getApplicationContext(),"add icon is clicked!!",Toast.LENGTH_LONG).show();
+            Intent intent=new Intent(getApplication(),Addnewrecord.class);
+            intent.putExtra("type","police");
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
