@@ -38,8 +38,8 @@ public class hospital extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hospital);
         listView=findViewById(R.id.hospital_listview_id);
-
-        set_database_initialize();
+        databaseHelper=new DatabaseHelper(getApplicationContext());
+      //  set_database_initialize();
         set_list_item();
     }
     @Override
@@ -68,20 +68,7 @@ public class hospital extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void set_database_initialize(){
-        databaseHelper=new DatabaseHelper(getApplicationContext());
-        try{
-            databaseHelper.onUpgrade(databaseHelper.mdatabase,1,2);
-            databaseHelper.createDatabase();
-        }catch (IOException e){
-            throw new Error("asdsd");
-        }
-        try{
-            databaseHelper.openDatabase();
-        }catch (SQLException sql){
-            throw sql;
-        }
-    }
+
 
     public void set_list_item(){
 

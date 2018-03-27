@@ -41,8 +41,8 @@ public class hotline extends AppCompatActivity {
         setContentView(R.layout.activity_hotline);
       //  serch_txt=findViewById(R.id.hotlineserchtxt_id);
         listView=findViewById(R.id.hot_listview_id);
-
-        set_database_initialize();
+        databaseHelper=new DatabaseHelper(getApplicationContext());
+       // set_database_initialize();
         set_list_item();
     }
 
@@ -72,20 +72,7 @@ public class hotline extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void set_database_initialize(){
-        databaseHelper=new DatabaseHelper(getApplicationContext());
-        try{
-              databaseHelper.onUpgrade(databaseHelper.mdatabase,1,2);
-            databaseHelper.createDatabase();
-        }catch (IOException e){
-            throw new Error("asdsd");
-        }
-        try{
-            databaseHelper.openDatabase();
-        }catch (SQLException sql){
-            throw sql;
-        }
-    }
+
 
     public void set_list_item(){
 

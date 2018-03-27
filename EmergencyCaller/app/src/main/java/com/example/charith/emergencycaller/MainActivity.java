@@ -1,6 +1,7 @@
 package com.example.charith.emergencycaller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity
 
         TextView emergency_txt,police_txt,university_txt,hotline_txt,hospital_txt;
         ImageView emergency_img,police_img,university_img,hotline_img,hospital_img;
+        DatabaseHelper databaseHelper;
 
 
     @Override
@@ -44,8 +47,8 @@ public class MainActivity extends AppCompatActivity
         hospital_txt=findViewById(R.id.hospitaltxt_id);
         hospital_img=findViewById(R.id.hospitalimg_id);
 
-        
-
+       // set_msg();
+        initilize_database();
         set_listner();
 
 
@@ -66,6 +69,36 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+
+
+    public void initilize_database(){
+        SharedPreferences sharedPreferences=getSharedPreferences("msg",MODE_PRIVATE);
+        String time=sharedPreferences.getString("msg","1");
+        if(time.equals("1")){
+           // Toast.makeText(getApplicationContext(),"fitdt time msg!",Toast.LENGTH_LONG).show();
+//==============this code should run only one time====================================
+            databaseHelper=new DatabaseHelper(getApplicationContext());
+            try{
+                databaseHelper.onUpgrade(databaseHelper.mdatabase,1,2);
+                databaseHelper.createDatabase();
+            }catch (IOException e){
+                throw new Error("asdsd");
+            }
+            try{
+                databaseHelper.openDatabase();
+            }catch (SQLException sql){
+                throw sql;
+            }
+
+
+            SharedPreferences.Editor editor=sharedPreferences.edit();
+            editor.putString("msg","2");
+            editor.apply();
+        }
+
+
     }
 
 

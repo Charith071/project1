@@ -38,9 +38,9 @@ public class Search extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        databaseHelper=new DatabaseHelper(getApplicationContext());
 
-
-        database_initialize();
+        //database_initialize();
         Intent intent=getIntent() ;
         type=intent.getExtras().getString("type").toString();
         serchtxt=findViewById(R.id.auto_searchtxt_id);
@@ -152,20 +152,7 @@ public class Search extends AppCompatActivity {
         }
     }
 
-    public void database_initialize(){
-        databaseHelper=new DatabaseHelper(getApplicationContext());
-        try{
-            databaseHelper.onUpgrade(databaseHelper.mdatabase,1,2);
-            databaseHelper.createDatabase();
-        }catch (IOException e){
-            throw new Error("asdsd");
-        }
-        try{
-            databaseHelper.openDatabase();
-        }catch (SQLException sql){
-            throw sql;
-        }
-    }
+
 
 
 

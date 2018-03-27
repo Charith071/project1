@@ -114,6 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Cursor custom_query(String query){
+        mdatabase=this.getReadableDatabase();
         //openDatabase();
         Cursor res= mdatabase.rawQuery(query,null);
         return res;

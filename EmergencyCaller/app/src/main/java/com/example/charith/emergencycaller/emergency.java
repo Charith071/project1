@@ -38,8 +38,8 @@ public class emergency extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency);
         listView=findViewById(R.id.emergency_listview_id);
-        initilize_database();
-
+       // initilize_database();
+        databaseHelper=new DatabaseHelper(getApplicationContext());
         set_list_item();
     }
 
@@ -67,20 +67,7 @@ public class emergency extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void initilize_database(){
-        databaseHelper=new DatabaseHelper(getApplicationContext());
-        try{
-              databaseHelper.onUpgrade(databaseHelper.mdatabase,1,2);
-            databaseHelper.createDatabase();
-        }catch (IOException e){
-            throw new Error("asdsd");
-        }
-        try{
-            databaseHelper.openDatabase();
-        }catch (SQLException sql){
-            throw sql;
-        }
-    }
+   
 
     public void set_list_item(){
         result=databaseHelper.custom_query("select * from emergency");
