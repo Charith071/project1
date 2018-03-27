@@ -29,24 +29,23 @@ public class Addnewrecord extends AppCompatActivity {
         type=intent.getExtras().getString("type");
 
         set_addbtn_listner();
+        set_cansalbtn_listner();
         databaseHelper=new DatabaseHelper(getApplicationContext());
        // check_type();
 
     }
+    public  void set_cansalbtn_listner(){
+        cansal_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                name_txt.setText("");
+                number_txt.setText("");
 
-    public void check_type(){
-        if(type.equals("emergency")){
-            Toast.makeText(getApplicationContext(),"Emergency", Toast.LENGTH_LONG).show();
-        } if(type.equals("police")){
-            Toast.makeText(getApplicationContext(),"police", Toast.LENGTH_LONG).show();
-        } if(type.equals("hotline")){
-            Toast.makeText(getApplicationContext(),"hotline", Toast.LENGTH_LONG).show();
-        } if(type.equals("university")){
-            Toast.makeText(getApplicationContext(),"university", Toast.LENGTH_LONG).show();
-        } if(type.equals("hospital")){
-            Toast.makeText(getApplicationContext(),"hospital", Toast.LENGTH_LONG).show();
-        }
+            }
+        });
     }
+
+
 
     public void set_addbtn_listner(){
         add_btn.setOnClickListener(new View.OnClickListener() {
@@ -66,40 +65,118 @@ public class Addnewrecord extends AppCompatActivity {
         });
     }
 
-    public void update_table(String name,String number){
-        String id= get_last_id();
-        if(id.equals("-1")){
-            Toast.makeText(getApplicationContext(),"cannot Insert!", Toast.LENGTH_LONG).show();
-        }else {
-           // Toast.makeText(getApplicationContext(),"id:"+id, Toast.LENGTH_LONG).show();
-            if(type.equals("emergency")){
-                 boolean result=   databaseHelper.insert_data(id,name,number,"emergency");
-                 if(result){
-                     Toast.makeText(getApplicationContext(),"Success!!", Toast.LENGTH_LONG).show();
-                 }else {
-                     Toast.makeText(getApplicationContext(),"fail!!", Toast.LENGTH_LONG).show();
-                 }
-            }
+    public boolean is_duplicate(String num1){
+        int check=3;
+       Cursor dup= databaseHelper.get_data("select * from "+type);
+       if(dup.getCount()==0){
+           //empty//
+            return true;
+       }else {
+           while (dup.moveToNext()){
+               String num2=dup.getString(dup.getColumnIndex("number"));
+               if(num1.equals(num2)){
+                   check=1;
+                   break;
+               }
+           }
+           if(check==1){
+               return true;
+           }else {
+               return false;
+           }
 
-        }
+       }
 
     }
+
+    public void update_table(String name,String number){
+        String id= get_last_id();
+        if(is_duplicate(number)){
+            Toast.makeText(getApplicationContext(),"the Number is already Exsit!!", Toast.LENGTH_LONG).show();
+        }else {
+            if(id.equals("-1")){
+                Toast.makeText(getApplicationContext(),"cannot Insert!", Toast.LENGTH_LONG).show();
+            }else {
+                // Toast.makeText(getApplicationContext(),"id:"+id, Toast.LENGTH_LONG).show();
+                if(type.equals("emergency")){
+                    boolean result=   databaseHelper.insert_data(id,name,number,"emergency");
+                    if(result){
+                        Intent intent=new Intent(getApplicationContext(),emergency.class);
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(),"Success!!", Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(getApplicationContext(),"fail!!", Toast.LENGTH_LONG).show();
+                    }
+                } if(type.equals("hospital")){
+                    boolean result= databaseHelper.insert_data(id,name,number,"hospital");
+                    if(result){
+                        Intent intent=new Intent(getApplicationContext(),hospital.class);
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(),"Success!!", Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(getApplicationContext(),"fail!!", Toast.LENGTH_LONG).show();
+                    }
+                } if(type.equals("hotline")){
+                    boolean result=   databaseHelper.insert_data(id,name,number,"hotline");
+                    if(result){
+                        Intent intent=new Intent(getApplicationContext(),hotline.class);
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(),"Success!!", Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(getApplicationContext(),"fail!!", Toast.LENGTH_LONG).show();
+                    }
+                } if(type.equals("police")){
+                    boolean result=   databaseHelper.insert_data(id,name,number,"police");
+                    if(result){
+                        Intent intent=new Intent(getApplicationContext(),police.class);
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(),"Success!!", Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(getApplicationContext(),"fail!!", Toast.LENGTH_LONG).show();
+                    }
+                } if(type.equals("university")){
+                    boolean result=   databaseHelper.insert_data(id,name,number,"university");
+                    if(result){
+                        Intent intent=new Intent(getApplicationContext(),university.class);
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(),"Success!!", Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(getApplicationContext(),"fail!!", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+        }
+    }
+
+
     public String get_last_id(){
         String id="";
+        Cursor res;
         if(type.equals("emergency")){
-           Cursor res= databaseHelper.get_data("select * from emergency order by id desc limit 1");
-           if(res.getCount()==0){
-               return "-1";
-               //empty
-           }else {
-               while (res.moveToNext()){
-                   id=res.getString(0);
-               }
-               return id;
-           }
-        }else {
-            return "-1";
+            res= databaseHelper.get_data("select * from emergency order by id desc limit 1");
+        } else if(type.equals("hospital")){
+            res= databaseHelper.get_data("select * from hospital order by id desc limit 1");
+        }else if(type.equals("hotline")){
+            res= databaseHelper.get_data("select * from hotline order by id desc limit 1");
+        } else if(type.equals("police")){
+            res= databaseHelper.get_data("select * from police order by id desc limit 1");
+        }else{
+            res= databaseHelper.get_data("select * from university order by id desc limit 1");
         }
+
+
+        if(res.getCount()==0){
+          //empty
+            return "-1";
+        }else {
+            while (res.moveToNext()){
+                id=res.getString(0);
+            }
+            return id;
+        }
+
+
     }
 
     public boolean check_numEmpty(String name,String number){

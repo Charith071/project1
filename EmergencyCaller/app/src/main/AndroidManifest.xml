@@ -27,7 +27,8 @@
         <activity android:name=".hotline" />
         <activity android:name=".Search" />
         <activity android:name=".hospital" />
-        <activity android:name=".Addnewrecord"></activity>
+        <activity android:name=".Addnewrecord" />
+        <activity android:name=".Update_table"></activity>
     </application>
 
 </manifest>

@@ -63,11 +63,16 @@ public class emergency extends AppCompatActivity {
             Intent intent=new Intent(getApplication(),Addnewrecord.class);
             intent.putExtra("type","emergency");
             startActivity(intent);
+        }if(id==R.id.edit_id){
+            //Toast.makeText(getApplicationContext(),"add icon is clicked!!",Toast.LENGTH_LONG).show();
+            Intent intent=new Intent(getApplication(),Update_table.class);
+            intent.putExtra("type","emergency");
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
 
-   
+
 
     public void set_list_item(){
         result=databaseHelper.custom_query("select * from emergency");
