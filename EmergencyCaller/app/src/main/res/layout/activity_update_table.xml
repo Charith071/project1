@@ -9,10 +9,8 @@
 
     <AutoCompleteTextView
         android:id="@+id/update_serchtxt_id"
-        android:layout_width="243dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="70dp"
-        android:layout_marginStart="71dp"
         android:layout_marginTop="82dp"
         android:backgroundTint="#fff"
         android:drawableLeft="@mipmap/ic_search_white_24dp"

@@ -94,6 +94,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public boolean update(String id,String name,String number,String type){
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues contentValues=new ContentValues();
+        if(!type.equals("police")){
+            contentValues.put("id",id);
+            contentValues.put("name",name);
+            contentValues.put("number",number);
+            db.update(type,contentValues,"id = ?",new String[]{id});
+            return true;
+        }else {
+            contentValues.put("id",id);
+            contentValues.put("name",name);
+            contentValues.put("number",number);
+            contentValues.put("location",0);
+            db.update(type,contentValues,"id = ?",new String[]{id});
+            return true;
+        }
+
+    }
+
     public Cursor get_data(String query){
         mdatabase=this.getReadableDatabase();
         Cursor res=mdatabase.rawQuery(query,null);

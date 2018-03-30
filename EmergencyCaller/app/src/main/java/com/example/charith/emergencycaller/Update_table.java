@@ -23,7 +23,7 @@ public class Update_table extends AppCompatActivity {
     String value="";
     ArrayAdapter arrayAdapter1;
     ArrayList<String> thelist1;
-    String name,number;
+    String name,number,id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class Update_table extends AppCompatActivity {
         type=intent.getExtras().getString("type");
        // Toast.makeText(getApplicationContext(),type, Toast.LENGTH_LONG).show();
         set_autocomplete_field();
-       // set_updatebtn_listner();
+        set_updatebtn_listner();
 
     }
 
@@ -65,41 +65,64 @@ public class Update_table extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"The number is Already Exsit!!", Toast.LENGTH_LONG).show();
         }else {
             //update
+            boolean is_Update=databaseHelper.update(id.trim(),name.trim(),number.trim(),type);
+            if(is_Update){
+                Toast.makeText(getApplicationContext()," update Success!!", Toast.LENGTH_LONG).show();
+                if(type.equals("emergency")){
+                    Intent intent=new Intent(getApplicationContext(),emergency.class);
+                    startActivity(intent);
+                }else if(type.equals("hotline")){
+                    Intent intent=new Intent(getApplicationContext(),hotline.class);
+                    startActivity(intent);
+                }else if(type.equals("hospital")){
+                    Intent intent=new Intent(getApplicationContext(),hospital.class);
+                    startActivity(intent);
+                }else if(type.equals("university")){
+                    Intent intent=new Intent(getApplicationContext(),university.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent=new Intent(getApplicationContext(),police.class);
+                    startActivity(intent);
+                }
+            }
+
+
+
         }
     }
     public boolean is_duplicate(String num1){
         int check=3;
         Cursor dup= databaseHelper.get_data("select * from "+type);
-        if(dup.getCount()==0){
-            //empty//
-            return true;
-        }else {
-            while (dup.moveToNext()){
-                String num2=dup.getString(dup.getColumnIndex("number"));
-                if(num1.equals(num2)){
-                    check=1;
-                    break;
-                }
-            }
-            if(check==1){
-                return true;
-            }else {
-                return false;
-            }
-
-        }
+       if(dup.getCount()==0){
+           return true;
+       }else {
+           while (dup.moveToNext()){
+               if(num1.trim().equals(dup.getString(dup.getColumnIndex("number")).trim())){
+                   if(!id.trim().equals(dup.getString(dup.getColumnIndex("id")).trim())){
+                       check=1;
+                       break;
+                   }
+               }
+           }
+           if(check==1){
+               return true;
+           }else {
+               return false;
+           }
+       }
 
     }
     public boolean check_numEmpty(String name,String number){
         if(name.isEmpty() || number.isEmpty()){
             return  false;
         }else {
-            if(number.trim().length()==10){
+           /* if(number.trim().length()==10){
                 return true;
             }else {
                 Toast.makeText(getApplicationContext(),"number fiels must contain 10 numbers!", Toast.LENGTH_LONG).show();
                 return  false;
-            }
+            }*/
+           return true;
 
         }
     }
@@ -112,7 +135,7 @@ public class Update_table extends AppCompatActivity {
             //empty
         }else {
             while (res.moveToNext()){
-                thelist1.add(res.getString(0)+"    "+res.getString(1)+"    "+res.getString(2));
+                thelist1.add(res.getString(res.getColumnIndex("id"))+"    "+res.getString(res.getColumnIndex("number"))+"    "+"\n"+res.getString(res.getColumnIndex("name")));
                 arrayAdapter1=new ArrayAdapter(Update_table.this,android.R.layout.select_dialog_item,thelist1);
             }
 
@@ -123,10 +146,20 @@ public class Update_table extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     value=search_txt.getText().toString();
                      Toast.makeText(getApplicationContext(),value,Toast.LENGTH_LONG).show();
+                     split_and_setvalues(value);
                  //   show_msg("Do You Want to Get a Call ?",value);
                 }
             });
         }
 
+    }
+
+    public void split_and_setvalues(String value){
+        String delimiter="   ";
+        String arr[]=value.split(delimiter);
+        id=arr[0];
+        name_txt.setText(arr[2].trim());
+        number_txt.setText(arr[1].trim());
+       // Toast.makeText(getApplicationContext(),id,Toast.LENGTH_LONG).show();
     }
 }
